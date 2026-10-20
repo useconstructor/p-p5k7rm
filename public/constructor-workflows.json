@@ -1,0 +1,1 @@
+{"version":1,"workflows":[{"id":"list-products","name":"Consultar inventario","description":"Consulta segura del inventario con paginación.","endpoint":"/api/products","method":"GET","input":{"q":"","stock":"all","page":1,"pageSize":25}}]}

@@ -1,0 +1,13 @@
+{
+  "primaryColor": "#F5F6F0",
+  "secondaryColor": "#FFFFFF",
+  "backgroundColor": "#F5F6F0",
+  "textColor": "#252B25",
+  "accentColor": "#365B36",
+  "fontHeading": "Public Sans",
+  "fontBody": "IBM Plex Mono",
+  "borderRadius": "0.25rem",
+  "logoText": "Inventario AWS Frontend",
+  "logoImageUrl": "https://vabacntbfcwhgkjqajcw.supabase.co/storage/v1/object/public/screenshots/projects/P-P5K7RM/logo.png",
+  "tone": "professional"
+}

@@ -1,33 +1,123 @@
 @import "tailwindcss";
-
 @theme {
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
-  --color-background: oklch(1 0 0);
-  --color-foreground: oklch(0.145 0 0);
-  --color-card: oklch(1 0 0);
-  --color-card-foreground: oklch(0.145 0 0);
-  --color-primary: oklch(0.205 0 0);
-  --color-primary-foreground: oklch(0.985 0 0);
-  --color-secondary: oklch(0.97 0 0);
-  --color-secondary-foreground: oklch(0.205 0 0);
-  --color-muted: oklch(0.97 0 0);
-  --color-muted-foreground: oklch(0.556 0 0);
-  --color-accent: oklch(0.97 0 0);
-  --color-accent-foreground: oklch(0.205 0 0);
-  --color-destructive: oklch(0.577 0.245 27.325);
-  --color-border: oklch(0.922 0 0);
-  --color-input: oklch(0.922 0 0);
-  --color-ring: oklch(0.708 0 0);
-  --radius: 0.5rem;
+  --font-sans: 'Public Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --color-background: #F5F6F0;
+  --color-foreground: #252B25;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #252B25;
+  --color-primary: #365B36;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #EDF1E9;
+  --color-secondary-foreground: #365B36;
+  --color-muted: #F5F6F0;
+  --color-muted-foreground: #596354;
+  --color-accent: #EDF1E9;
+  --color-accent-foreground: #365B36;
+  --color-destructive: #B42318;
+  --color-destructive-foreground: #FFFFFF;
+  --color-border: #CDD3C7;
+  --color-input: #CDD3C7;
+  --color-ring: #365B36;
+  --color-parcel: #A5AAA6;
+  --color-parcel-ring: #E4E6E2;
+  --radius: .25rem;
 }
-
 @layer base {
-  * {
-    border-color: var(--color-border);
-  }
-  body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-  }
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground font-sans antialiased; }
+  button, input, select { @apply text-base; }
+  button { @apply cursor-pointer; }
+  button:disabled { @apply cursor-not-allowed; }
+  input, select { @apply min-h-11 w-full rounded border bg-white px-3 text-base; }
+  input:focus-visible, select:focus-visible, button:focus-visible, a:focus-visible, [tabindex]:focus-visible { @apply outline-2 outline-offset-4 outline-primary; }
+  input[aria-invalid="true"] { @apply border-destructive; }
+  input:disabled { @apply cursor-not-allowed bg-background/30 text-muted-foreground opacity-100; }
+  label { @apply text-sm font-medium; }
+  summary:focus-visible { @apply outline-2 outline-offset-4 outline-primary; }
+  summary::-webkit-details-marker { display: none; }
 }
+@layer utilities {
+  .tag-header { @apply relative isolate; }
+  .tag-outline { @apply pointer-events-none absolute inset-0 -z-10 rounded bg-border; clip-path: polygon(30px 0,100% 0,100% 100%,30px 100%,27px calc(100% - 1px),1px calc(50% + 3px),0 50%,1px calc(50% - 3px),27px 1px); }
+  .tag-fill { @apply absolute inset-px rounded-[3px] bg-white; clip-path: polygon(29px 0,100% 0,100% 100%,29px 100%,26px calc(100% - 1px),1px calc(50% + 3px),0 50%,1px calc(50% - 3px),26px 1px); }
+  .tag-rails { @apply pointer-events-none absolute left-0 right-0 top-1/2 h-2 -translate-y-1/2 border-y-2 border-primary; }
+  .table-heading { @apply px-5 py-3 text-left text-sm font-semibold text-muted-foreground; }
+  .cell { @apply px-5 py-4; }
+  .connection { @apply pointer-events-none absolute -left-[26px] w-[26px] text-primary; animation: connect .25s ease-out; }
+  .appear { animation: connect .2s ease-out; }
+}
+@media (min-width: 1100px) {
+  .inventory-app { @apply px-8 py-4; }
+  .inventory-app > header { @apply mb-8; }
+  .inventory-app > header .tag-header { @apply mx-8 min-h-38 gap-8 py-8 pl-24 pr-8; }
+  .inventory-app > header h1 { @apply text-[48px] leading-14; }
+  .inventory-app > header p { @apply mt-2 text-[28px] leading-9; }
+  .inventory-app button { @apply text-base; }
+  .inventory-app > header button { @apply min-h-16 min-w-60 px-6; }
+  .inventory-app > header .tag-header > span:not(.tag-outline) { @apply left-8 h-7 w-7 border-[6px]; }
+  .inventory-app > header .tag-outline { clip-path: polygon(48px 0,100% 0,100% 100%,48px 100%,44px calc(100% - 1px),1px calc(50% + 4px),0 50%,1px calc(50% - 4px),44px 1px); }
+  .inventory-app > header .tag-fill { clip-path: polygon(47px 0,100% 0,100% 100%,47px 100%,43px calc(100% - 1px),1px calc(50% + 4px),0 50%,1px calc(50% - 4px),43px 1px); }
+  .inventory-app > section[aria-label] { @apply px-8 py-12; }
+  .inventory-app > section[aria-label] > div { @apply grid-cols-[minmax(0,1.36fr)_minmax(0,1fr)_minmax(0,.8fr)_minmax(0,1.02fr)] gap-6; }
+  .inventory-app > section[aria-label] > div > div:last-child { @apply justify-end; }
+  .inventory-app > section[aria-label] label { @apply text-base leading-6; }
+  .inventory-app > section[aria-label] input, .inventory-app > section[aria-label] select { @apply min-h-16 text-lg; }
+  .inventory-app > section[aria-label] .relative > svg { @apply top-6; }
+  .inventory-app > section[aria-label] button { @apply min-h-16 min-w-52 px-6; }
+  .inventory-app > section[aria-label] > p { @apply text-lg leading-7; }
+  #inventory { min-height: min(84vw, 1280px); }
+  #inventory-title { @apply text-xl font-medium leading-7; }
+  #inventory > div:first-child { @apply py-6; }
+  #inventory th { @apply text-base font-medium; }
+  #inventory h3 { @apply text-[36px] leading-11; }
+  #inventory h3 + p { @apply mt-5 max-w-[440px] text-xl leading-8; }
+  #inventory h3 ~ button { @apply min-h-16 min-w-60 px-6; }
+  #inventory .rounded-full { @apply h-40 w-40; }
+  #inventory .rounded-full svg { @apply h-22 w-22; }
+  [data-pagination] { @apply py-6; }
+  [data-pagination] button, [data-pagination] select { @apply min-h-16 text-base; }
+  [data-pagination] > span { @apply text-base leading-6; }
+  .inventory-app aside h2, .inventory-app aside h3 { @apply text-2xl font-medium leading-8; }
+  .inventory-app aside > div > p { @apply text-xl leading-8; }
+  .inventory-app aside .rounded-full { @apply h-32 w-32; }
+  .inventory-app aside .rounded-full svg { @apply h-18 w-18; }
+  .inventory-app > div:has(> div > svg) { @apply mt-6 px-8 py-10; }
+  .inventory-app > div:has(> div > svg) p:first-child { @apply text-lg leading-7; }
+  .inventory-app > div:has(> div > svg) p:last-child { @apply text-base leading-6; }
+  .inventory-app > div:has(> div > svg) > span { @apply text-base; }
+  #operations-title { @apply text-[32px] font-medium leading-10 tracking-[-0.025em]; }
+  #operations-title + p { @apply text-xl leading-8; }
+  section[aria-labelledby="operations-title"] { @apply mt-12 px-6; }
+  .operation-stack { @apply mt-12 max-w-[1040px] space-y-10; }
+  .operation-surface > summary { @apply min-h-26 px-8 py-6; }
+  .operation-surface h3 { @apply text-[28px] font-medium leading-9 tracking-[-0.025em]; }
+  .operation-surface > summary > span { @apply h-12 w-12; }
+  .operation-body { @apply flex min-h-[524px] flex-col px-8 py-8; }
+  .operation-body label, .operation-body dt, .operation-body .stock-fields span[id] { @apply text-base; }
+  .operation-body > p:first-child { @apply text-base leading-6; }
+  .operation-body .text-xs { @apply text-sm leading-6; }
+  .operation-actions button { @apply min-h-14 px-6; }
+  .operation-body > p:first-child { @apply mb-8; }
+  .operation-actions { @apply mt-auto pt-8; }
+  .operation-surface:first-child .operation-body { @apply min-h-[546px]; }
+  .operation-surface:last-child .operation-body { @apply min-h-[420px]; }
+  .operation-body > .grid { @apply gap-y-8; }
+  .operation-body .stock-fields { @apply gap-8; }
+  .operation-body .stock-fields > div:first-child { @apply space-y-8 pr-6; }
+  .operation-body .stock-fields dl { @apply grid-cols-[112px_minmax(0,1fr)] gap-x-3 gap-y-6; }
+  .operation-body .stock-fields > div:last-child { @apply min-h-[330px] p-6; }
+  .operation-body .stock-fields > div:last-child > p:last-child { @apply mt-12; }
+  .inventory-app > footer { @apply mt-12 min-h-[352px] px-12 py-8; }
+  .inventory-app > footer > div:first-child { @apply grid-cols-[1.75fr_1fr_1fr] gap-16; }
+  .inventory-app > footer .tag-header { @apply min-h-[140px] max-w-[448px] py-6 pl-10 pr-14; }
+  .inventory-app > footer .tag-header > p:first-of-type { @apply text-[28px] font-medium leading-9; }
+  .inventory-app > footer .tag-header > p:last-of-type { @apply text-lg leading-7; }
+  .inventory-app > footer nav a, .inventory-app > footer nav button { @apply text-base; }
+  .inventory-app > footer ul { @apply text-lg leading-7; }
+  .inventory-app > footer > div:first-child > div:first-child > p { @apply px-5 py-3 text-base; }
+  .inventory-app > footer > div:last-child { @apply text-base leading-6; }
+  .inventory-app > footer > div:last-child { @apply mt-8 pt-6; }
+}
+@keyframes connect { from { opacity: 0; transform: translateX(-4px); } to { opacity: 1; transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
